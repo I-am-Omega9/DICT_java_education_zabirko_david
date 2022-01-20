@@ -8,7 +8,10 @@ class Hangman {
         Random randomIntGen = new Random();
         int randomInt = randomIntGen.nextInt(words.length);
         String word = words[randomInt];
-        System.out.println("HANGMAN \nGuess the word:");
+        StringBuilder hiddenWord = new StringBuilder(word.substring(0, 2));
+        hiddenWord.append("-".repeat(word.length() - 2));
+        System.out.printf("HANGMAN \nGuess the word: %s:", hiddenWord);
+        System.out.println();
         Scanner input = new Scanner(System.in);
         String answer = input.nextLine();
         if (answer.equals(word)) {
