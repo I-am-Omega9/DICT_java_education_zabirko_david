@@ -2,6 +2,7 @@ package Hangman;
 import java.util.Random;
 import java.util.Scanner;
 
+
 class Hangman {
     public static void main(String[] args) {
         String[] words = {"java", "kotlin", "python", "javascript"};
