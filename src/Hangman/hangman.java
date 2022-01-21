@@ -2,12 +2,12 @@ package Hangman;
 import java.util.Random;
 import java.util.Scanner;
 
-
 class Hangman {
     public static void main(String[] args) {
         String[] words = {"java", "kotlin", "python", "javascript"};
         String word = generateWord(words);
         StringBuilder hiddenWord = hiddenWordGen(word);
+        StringBuilder letters = new StringBuilder();
         System.out.println("HANGMAN");
         int lives = 8;
         while (true) {
@@ -20,16 +20,14 @@ class Hangman {
                     System.out.println();
                     Scanner userInput = new Scanner(System.in);
                     String answer = userInput.nextLine();
-                    if (!word.contains(answer)) {
-                        System.out.println("The letter doesn't appear in word.");
-                        --lives;
-                    }
-                    else if (hiddenWord.indexOf(answer) != -1){
-                        System.out.println("No improvements.");
-                        --lives;
-                    }
-                    else {
-                        updateHiddenWord(hiddenWord, answer, word);
+                    if (checker(answer, letters)) {
+                        letters.append(answer);
+                        if (!word.contains(answer)) {
+                            System.out.println("The letter doesn't appear in word");
+                            --lives;
+                        } else {
+                            updateHiddenWord(hiddenWord, answer, word);
+                        }
                     }
                 } else {
                     System.out.println(hiddenWord);
@@ -57,6 +55,24 @@ class Hangman {
                 hiddenWord.setCharAt(index, answer.charAt(0));
                 ++index;
             }
+        }
+    }
+    public static Boolean checker(String answer, StringBuilder chosen_letters) {
+        String letters = "qwertyuiopasdfghjklzxcvbnm";
+        if (answer.length() != 1) {
+            System.out.println("You should enter one letter");
+            return false;
+        }
+        else if (!letters.contains(answer)){
+            System.out.println("You should enter only english lowercase letters!");
+            return false;
+        }
+        else if (chosen_letters.indexOf(answer) != -1){
+            System.out.println("You already choose that letter");
+            return false;
+        }
+        else {
+            return true;
         }
     }
 }
